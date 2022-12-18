@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+<% foundItems.forEach(function (item) { %>
+<div class="label-header">
+    <h1>UPDATE INBOUND APPOINTMENT</h1>
+</div>
+<div class="body">
+    <div class="container-fluid add-form">
+        <form action="/update-inbound" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col">
+                    <label for="etaDate">Estimated Date:</label>
+                    <input id="etaDate" name="etaDate" class="form-control" value="<%= item.date %>" type="date">
+                </div>
+                <div class="col">
+                    <label for="etaTime">Estimated Time:</label>
+                    <input id="etaTime" name="etaTime" class="form-control" value="<%= item.time %>" type="time">
+                </div>
+                <div class="col">
+                    <label for="client">Client:</label>
+                    <input id="client" name="client" class="form-control" list="" value="<%= item.client %>" type="text"> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="container">Container</label>
+                    <input id="container" name="container" class="form-control" value="<%= item.container %>" type="text">      
+                </div>
+                <div class="col">
+                    <label for="reference">PO / Reference:</label>
+                    <input id="reference" name="reference" class="form-control" value="<%= item.reference %>" type="text">      
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="carrier">Carrier:</label>
+                    <input id="carrier" name="carrier" class="form-control" list="" value="<%= item.carrier %>" type="text">      
+                </div>
+                <div class="col">
+                    <button name="updateId" value="<%= item._id %>" class="btn btn-primary form-btn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<% }) %>
+<%- include('partials/footer') %>

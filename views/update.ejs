@@ -1,0 +1,114 @@
+<%- include('partials/header') %>
+    <% items.forEach(function(item) { %>
+    <div class="body">
+        <div class="container-fluid add-form">
+            <form action="/update-record" method="post" autocomplete="off">
+                <div class="row">
+                    <div class="col">
+                        <label for="po-number">PO Number:</label>
+                        <input type="text" class="form-control" name="poNumber" id="poNumber" value="<%=item.poNumber%>">
+                    </div>
+                    <div class="col">
+                        <label for="vendor">Vendor:</label>
+                        <input type="text" class="form-control" name="vendor" id="vendor" value="<%=item.vendor%>" autocomplete="on" required>
+                    </div>
+                    <div class="col">
+                        <label for="depot">Depot:</label>
+                        <select class='form-select' name="depot" id="depot">
+                            <option selected><%=item.depot%></option>
+                            <option value="Langley">Langley</option>
+                            <option value="Airdrie">Airdrie</option>
+                            <option value="Vaughan">Vaughan</option>
+                            <option value="Varennes">Varennes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="in-house-date">In House Date:</label>
+                        <input type="date" class="form-control" name="inHouseDate" id="in-house-date" value="<%=item.inHouseDate%>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="ready-date">Ready Date:</label>
+                        <input type="date" class="form-control" name="readyDate" id="ready-date" value="<%=item.readyDate%>">
+                    </div>
+                    <div class="col">
+                        <label for="ship-date">Ship Date:</label>
+                        <input type="date" class="form-control" name="shipDate" id="ship-date" value="<%=item.shipDate%>">
+                    </div>
+                    <div class="col">
+                        <label for="appointmentDate">Appointment Date:</label>
+                        <input type="date" class="form-control" name="appointmentDate" id="appointmentDate" value="<%=item.appointmentDate%>">
+                    </div>
+                    <div class="col">
+                        <label for="appointmentTime">Appointment Time:</label>
+                        <input type="time" class="form-control" name="appointmentTime" id="appointmentTime" value="<%=item.appointmentTime%>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="carrier">Carrier:</label>
+                        <input type="text" class="form-control" name="carrier" id="carrier" value="<%=item.carrier%>">
+                    </div>
+                    <div class="col">
+                        <label for="skid-quantity">Skid Quantity:</label>
+                        <input type="text" class="form-control" name="skidQuantity" id="skid-quantity" value="<%=item.skidQuantity%>">
+                    </div>
+                    <div class="col">
+                        <label for="stackable">Stackable:</label>
+                        <select class='form-select form-select' name="stackable" id="stackable">
+                            <% if (item.stackable == 'ST') { %>
+                                <option selected>Stackable</option>
+                                <option value="ST">Stackable</option>
+                                <option value="NS">Non-Stackable</option>
+                            <% } else { %>
+                                <option selected>Non-Stackable</option>
+                                <option value="ST">Stackable</option>
+                                <option value="NS">Non-Stackable</option>    
+                            <% }%> 
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="confirmation-number">Confirmation Number:</label>
+                        <input type="text" class="form-control" name="confirmationNumber" id="confirmation-number" value="<%=item.confirmationNumber%>">
+                    </div>
+                </div>
+                <div class="row"> 
+                    <div class="col">
+                        <label for="picked">Picked:</label>
+                        <select class='form-select form-select' name="picked" id="picked" value="<%= %>">
+                            <% if (item.picked) { %>
+                                <option selected>Yes</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            <% } else { %>
+                                <option selected>No</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>    
+                            <% }%> 
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="accepted-quotes">Accepted Quotes:</label>
+                        <select class='form-select' name="acceptedQuotes" id="accepted-quotes" value="<%= %>">
+                            <% if (item.acceptedQuote) { %>
+                                <option selected>Yes</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            <% } else { %>
+                                <option selected>No</option> 
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>   
+                            <% }%>    
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary form-btn" name="orderId" value="<%=item._id%>">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%  }) %>
+<%- include('partials/footer') %>

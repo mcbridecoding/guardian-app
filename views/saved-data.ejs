@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+    <div class="container-fluid report">
+        <div class="row">
+            <div class="col">
+                <h2 class="db-headers">Carriers</h2>
+            </div>
+            <div class="col">
+                <h2 class="db-headers">Customers</h2>
+            </div>
+            <div class="col">
+                <h2 class="db-headers">Vendors</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-warning table-striped table-hover">
+                    <thead class="t-center">
+                        <tr>
+                            <form action="/add-carrier" method="post" autocomplete="off">
+                                <td><input type="text" class="form-control input-medium" name="carrier" placeholder="Add New Carrier ..."></td>
+                                <td><button class="btn btn-success">Add</button></td>
+                            </form>
+                        </tr>
+                    </thead>
+                    <tbody class="t-center">
+                        <% carriers.forEach(function(carrier) { %>
+                            <tr>
+                                <td>
+                                    <%=carrier.carrier%>
+                                </td>
+                                <td>
+                                    <form action="/delete-carrier" method="post">
+                                        <button class="btn btn-danger options" name="carrierId"
+                                            value="<%=carrier._id%>">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-success table-striped table-hover">
+                    <thead class="t-center">
+                        <tr>
+                            <form action="/add-customer" method="post" autocomplete="off">
+                                <td><input type="text" class="form-control input-medium" name="customer" placeholder="Add New Customer ..."></td>
+                                <td><button class="btn btn-success">Add</button></td>
+                            </form>
+                        </tr>
+                    </thead>
+                    <tbody class="t-center">
+                        <% customers.forEach(function(customer) { %> 
+                        <tr>
+                            <td><%= customer.customer %></td>
+                            <td>
+                                <form action="/delete-customer" method="post">
+                                    <button class="btn btn-danger options" name="customerId" value="<%= customer._id %>">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-danger table-striped table-hover">
+                    <thead class="t-center">
+                        <tr>
+                            <form action="/add-vendor" method="post" autocomplete="off">
+                                <td><input type="text" class="form-control input-medium" name="vendor" placeholder="Add New Vendor ..."></td>
+                                <td><button class="btn btn-success">Add</button></td>
+                            </form>
+                        </tr>
+                    </thead>
+                    <tbody class="t-center">
+                        <% vendors.forEach(function(vendor) { %>
+                        <tr>
+                            <td><%= vendor.vendor %></td>
+                            <td>
+                                <form action="/delete-vendor" method="post">
+                                    <button class="btn btn-danger options" name="vendorId" value="<%= vendor._id%>">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>

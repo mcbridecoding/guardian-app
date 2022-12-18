@@ -1,0 +1,55 @@
+<%- include('partials/header') %>
+<div class="label-header">
+    <h1>ADD INBOUND APPOINTMENT</h1>
+</div>
+<div class="body">
+    <div class="container-fluid add-form">
+        <form action="" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col">
+                    <label for="etaDate">Estimated Date:</label>
+                    <input id="etaDate" name="etaDate" class="form-control" type="date">
+                </div>
+                <div class="col">
+                    <label for="etaTime">Estimated Time:</label>
+                    <input id="etaTime" name="etaTime" class="form-control" type="time">
+                </div>
+                <div class="col">
+                    <label for="client">Client:</label>
+                    <input id="client" name="client" class="form-control" list="customerList" type="text"> 
+                    <datalist id="customerList">
+                        <% customers.forEach(function(customer) { %> 
+                        <option value="<%= customer.customer %>">
+                        <% }) %>
+                    </datalist>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="container">Container</label>
+                    <input id="container" name="container" class="form-control" type="text">      
+                </div>
+                <div class="col">
+                    <label for="reference">PO / Reference:</label>
+                    <input id="reference" name="reference" class="form-control" type="text">      
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="carrier">Carrier:</label>
+                    <input id="carrier" name="carrier" class="form-control" list="carrierList" type="text">
+                    <datalist id="carrierList">
+                        <% carriers.forEach(function(carrier) { %> 
+                        <option value="<%= carrier.carrier %>">
+                        <% }) %>
+                    </datalist>      
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary form-btn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

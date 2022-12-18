@@ -1,0 +1,102 @@
+<%- include('partials/header') %>
+    <% items.forEach(function(item) { %>   
+    <div class="body">
+        <div class="container-fluid add-form">
+            <form action="/add" method="POST" autocomplete="off">
+                <div class="row">
+                    <div class="col">
+                        <label for="po-number">PO Number:</label>
+                        <input type="text" class="form-control" name="poNumber" id="po-number" value="<%= item.poNumber %>">
+                    </div>
+                    <div class="col">
+                        <label for="vendor">Vendor:</label>
+                        <input type="text" class="form-control" name="vendor" id="vendor" list='vendorName' required>
+                        <datalist id="vendorName">
+                        <% vendors.forEach(function(vendor) { %> 
+                            <option value="<%= vendor.vendor %>">
+                            <% }) %>
+                        </datalist>
+                    </div>
+                    <div class="col">
+                        <label for="depot">Depot:</label>
+                        <select class='form-select' name="depot" id="depot">
+                            <option selected><%= item.depot %></option>
+                            <option value="Langley">Langley</option>
+                            <option value="Airdrie">Airdrie</option>
+                            <option value="Vaughan">Vaughan</option>
+                            <option value="Varennes">Varennes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="in-house-date">In House Date:</label>
+                        <input type="date" class="form-control" name="inHouseDate" id="in-house-date" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="ready-date">Ready Date:</label>
+                        <input type="date" class="form-control" name="readyDate" id="ready-date">
+                    </div>
+                    <div class="col">
+                        <label for="ship-date">Ship Date:</label>
+                        <input type="date" class="form-control" name="shipDate" id="ship-date">
+                    </div>
+                    <div class="col">
+                        <label for="appointmentDate">Appointment Date:</label>
+                        <input type="date" class="form-control" name="appointmentDate" id="appointmentDate">
+                    </div>
+                    <div class="col">
+                        <label for="appointmentTime">Appointment Time:</label>
+                        <input type="time" class="form-control" name="appointmentTime" id="appointmentTime">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="carrier">Carrier:</label>
+                        <input type="text" class="form-control" name="carrier" list="carrierName" id="carrier">
+                            <datalist id="carrierName">
+                                <% carriers.forEach(function(carrier) { %> 
+                                <option value="<%=carrier.carrier%>">
+                                <% }) %>
+                            </datalist>
+                    </div>
+                    <div class="col">
+                        <label for="skid-quantity">Skid Quantity:</label>
+                        <input type="text" class="form-control" name="skidQuantity" id="skid-quantity">
+                    </div>
+                    <div class="col">
+                        <label for="stackable">Stackable:</label>
+                        <select class='form-select form-select' name="stackable" id="stackable">
+                            <option value="ST">Stackable</option>
+                            <option value="NS">Non-Stackable</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="confirmation-number">Confirmation Number:</label>
+                        <input type="text" class="form-control" name="confirmationNumber" id="confirmation-number">
+                    </div>
+                </div>
+                <div class="row"> 
+                    <div class="col">
+                        <label for="picked">Picked:</label>
+                        <select class='form-select form-select' name="picked" id="picked">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="accepted-quotes">Accepted Quotes:</label>
+                        <select class='form-select' name="acceptedQuotes" id="accepted-quotes">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary form-btn">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <% }) %>
+<%- include('partials/footer') %>

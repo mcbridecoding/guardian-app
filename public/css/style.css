@@ -1,0 +1,81 @@
+.add-form {
+    background-color: #ffff;
+    color: #242424;
+    border: 1px solid #242424;
+    box-shadow: 0px 2px 5px; 
+    padding: 25px;    
+}
+
+.add-button {
+    width: 85%;
+}
+
+body {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 51%, rgba(0,212,255,1) 100%);
+}
+
+.body {
+    margin: 50px 100px 100px 100px;
+}
+
+.db-headers {
+    color: #ffff;
+    text-align: center;
+}
+
+.depot-buttons {
+    margin: 20px 25% 0 25%;
+    width: 200px;
+}
+
+.form-btn {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+    width: 150px; 
+}
+
+.input-medium {
+    margin-left: 75px;
+    width: 70%;
+}
+
+.label-header {
+    color: #ffff;
+    margin: 50px 25% 0 25%;
+    text-align: center;
+}
+
+.options {
+    width: 75px;
+}
+
+.report {
+    padding: 25px 25px 0 25px;
+}
+
+.row {
+    padding: 10px 0px;
+}
+
+.t-center {
+    text-align: center; 
+    margin: auto;
+}
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+    vertical-align: middle;
+}
+
+.table-options {
+    text-align: center;
+    vertical-align: middle;
+    width: 125px;
+}
+
+
+
+

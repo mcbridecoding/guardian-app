@@ -1,0 +1,283 @@
+<%- include('partials/header') %>
+
+<!-- <div class="btn-group" role="group">
+    <a href="/add" type="button" class="btn btn-success">Add </a>
+</div> -->
+
+<div class="container-fluid">
+    <form action="/" method="post">
+        <div class="row">
+            <div class="col">
+                <button name="depot" value="langley" class="btn btn-primary depot-buttons">Langley</button>
+            </div>
+            <div class="col">
+                <button name="depot" value="airdrie" class="btn btn-success depot-buttons">Airdrie</button>
+            </div>
+            <div class="col">
+                <button name="depot" value="vaughan" class="btn btn-danger depot-buttons">Vaughan</button>
+            </div>
+            <div class="col">
+                <button name="depot" value="varennes" class="btn btn-warning depot-buttons">Varennes</button>
+            </div>
+        </div>    
+    </form>    
+</div>
+
+<div class="container-fluid report">
+    <table class="table table-primary table-striped table-hover">
+        <thead class="t-center">
+            <tr>
+                <th scope="col">Langley</th>
+            </tr>
+            <tr>
+                <th scope="col">PO Number</th>
+                <th scope="col">Depot</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">In House Date / MABD</th>
+                <th scope="col">Ready Date</th>
+                <th scope="col">Ship Date</th>
+                <th scope="col">Appt. Date</th>
+                <th scope="col">Appt. Time</th>
+                <th scope="col">Picked</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Accepted Quotes</th>
+                <th scope="col">Skid Quantity</th>
+                <th scope="col">ST / NS</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="t-center">
+            <% langley.forEach(function(item) { %>
+                <tr>
+                    <td><%=item.poNumber%></td>
+                    <td><%=item.depot%></td>
+                    <td><%=item.vendor%></td>
+                    <td><%=item.inHouseDate%></td>
+                    <td><%=item.readyDate%></td>
+                    <td><%=item.shipDate%></td>
+                    <td><%=item.appointmentDate%></td>
+                    <td><%=item.appointmentTime%></td>
+                    <% if (item.picked) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <td><%=item.carrier%></td>
+                    <% if (item.acceptedQuote) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>   
+                    <td><%=item.skidQuantity%></td>
+                    <td><%=item.stackable%></td>
+                    <td>
+                        <form action="/update" method="post">
+                            <button class="btn btn-success options" name="updateId" value=<%=item._id%>>Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete-appointment" method="post">
+                            <button class="btn btn-danger options" name="deleteId" value="<%=item._id%>">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <%  }) %>
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid report">
+    <table class="table table-success table-striped table-hover">
+        <thead class="t-center">
+            <tr>
+                <th scope="col">Airdrie</th>
+            </tr>
+            <tr>
+                <th scope="col">PO Number</th>
+                <th scope="col">Depot</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">In House Date / MABD</th>
+                <th scope="col">Ready Date</th>
+                <th scope="col">Ship Date</th>
+                <th scope="col">Appt. Date</th>
+                <th scope="col">Appt. Time</th>
+                <th scope="col">Picked</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Accepted Quotes</th>
+                <th scope="col">Skid Quantity</th>
+                <th scope="col">ST / NS</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="t-center">
+            <% airdrie.forEach(function(item) { %>
+                <tr>
+                    <td><%=item.poNumber%></td>
+                    <td><%=item.depot%></td>
+                    <td><%=item.vendor%></td>
+                    <td><%=item.inHouseDate%></td>
+                    <td><%=item.readyDate%></td>
+                    <td><%=item.shipDate%></td>
+                    <td><%=item.appointmentDate%></td>
+                    <td><%=item.appointmentTime%></td>
+                    <% if (item.picked) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <td><%=item.carrier%></td>
+                    <% if (item.acceptedQuote) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>   
+                    <td><%=item.skidQuantity%></td>
+                    <td><%=item.stackable%></td>
+                    <td>
+                        <form action="/update" method="post">
+                            <button class="btn btn-success options" name="updateId" value=<%=item._id%>>Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete-appointment" method="post">
+                            <button class="btn btn-danger options" name="deleteId" value="<%=item._id%>">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <%  }) %>
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid report">
+    <table class="table table-danger table-striped table-hover">
+        <thead class="t-center">
+            <tr>
+                <th scope="col">Vaughan</th>
+            </tr>
+            <tr>
+                <th scope="col">PO Number</th>
+                <th scope="col">Depot</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">In House Date / MABD</th>
+                <th scope="col">Ready Date</th>
+                <th scope="col">Ship Date</th>
+                <th scope="col">Appt. Date</th>
+                <th scope="col">Appt. Time</th>
+                <th scope="col">Picked</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Accepted Quotes</th>
+                <th scope="col">Skid Quantity</th>
+                <th scope="col">ST / NS</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="t-center">
+            <% vaughan.forEach(function(item) { %>
+                <tr>
+                    <td><%=item.poNumber%></td>
+                    <td><%=item.depot%></td>
+                    <td><%=item.vendor%></td>
+                    <td><%=item.inHouseDate%></td>
+                    <td><%=item.readyDate%></td>
+                    <td><%=item.shipDate%></td>
+                    <td><%=item.appointmentDate%></td>
+                    <td><%=item.appointmentTime%></td>
+                    <% if (item.picked) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <td><%=item.carrier%></td>
+                    <% if (item.acceptedQuote) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>   
+                    <td><%=item.skidQuantity%></td>
+                    <td><%=item.stackable%></td>
+                    <td>
+                        <form action="/update" method="post">
+                            <button class="btn btn-success options" name="updateId" value=<%=item._id%>>Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete-appointment" method="post">
+                            <button class="btn btn-danger options" name="deleteId" value="<%=item._id%>">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <%  }) %>
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid report">
+    <table class="table table-warning table-striped table-hover">
+        <thead class="t-center">
+            <tr>
+                <th scope="col">Varennes</th>
+            </tr>
+            <tr>
+                <th scope="col">PO Number</th>
+                <th scope="col">Depot</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">In House Date / MABD</th>
+                <th scope="col">Ready Date</th>
+                <th scope="col">Ship Date</th>
+                <th scope="col">Appt. Date</th>
+                <th scope="col">Appt. Time</th>
+                <th scope="col">Picked</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Accepted Quotes</th>
+                <th scope="col">Skid Quantity</th>
+                <th scope="col">ST / NS</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="t-center">
+            <% varennes.forEach(function(item) { %>
+                <tr>
+                    <td><%=item.poNumber%></td>
+                    <td><%=item.depot%></td>
+                    <td><%=item.vendor%></td>
+                    <td><%=item.inHouseDate%></td>
+                    <td><%=item.readyDate%></td>
+                    <td><%=item.shipDate%></td>
+                    <td><%=item.appointmentDate%></td>
+                    <td><%=item.appointmentTime%></td>
+                    <% if (item.picked) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <td><%=item.carrier%></td>
+                    <% if (item.acceptedQuote) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>   
+                    <td><%=item.skidQuantity%></td>
+                    <td><%=item.stackable%></td>
+                    <td>
+                        <form action="/update" method="post">
+                            <button class="btn btn-success options" name="updateId" value=<%=item._id%>>Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete-appointment" method="post">
+                            <button class="btn btn-danger options" name="deleteId" value="<%=item._id%>">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <%  }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/footer') %>
+

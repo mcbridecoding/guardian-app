@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<div class="container-fluid report">
+    <table class="table table-striped table-dark table-hover">
+        <thead class="t-center">
+            <tr>
+                <th scope="col">Estimated Date:</th>
+                <th scope="col">Estimated Time:</th>
+                <th scope="col">Client</th>
+                <th scope="col">Container</th>
+                <th scope="col">PO / Reference</th>
+                <th scope="col">Carrier</th>
+                <th scope="col" colspan="2"><a href="/add-inbound" class="btn btn-primary add-button">Add</a></th>
+            </tr>
+        </thead>
+        <tbody>
+<% foundItems.forEach(function(item) { %>
+            <tr class="t-center">
+                <td><%= item.date %></td>
+                <td><%= item.time %></td>
+                <td><%= item.client %></td>
+                <td><%= item.container %></td>
+                <td><%= item.reference %></td>
+                <td><%= item.carrier %></td>
+                <td class="table-options">
+                    <form action="/inbound" method="post">
+                        <button class="btn btn-success options" name="updateId" value="<%= item._id %>">Update</button>
+                    </form>
+                </td>
+                <td class="table-options">
+                    <form action="/delete-inbound" method="post">
+                        <button class="btn btn-danger options" name="deleteId" value="<%= item._id %>">Delete</button>
+                    </form>
+                </td>
+            </tr>
+<% }) %>        
+        </tbody>
+    </table>   
+</div>
+
+<%- include('partials/footer') %>

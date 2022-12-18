@@ -1,0 +1,103 @@
+<%- include('partials/header') %>    
+    <div class="body">
+        <div class="container-fluid report table-responsive">
+            <form action="/add-shipment" method="post" autocomplete="off">
+                <table class="table align-middle table-dark table-striped table-hover">
+                    <thead class="t-center">
+                        <tr>
+                            <th scope="col" style="width: 75px;">#</th>
+                            <th scope="col" style="width: 100px;">Picked</th>
+                            <th scope="col" style="width: 100px;">Signed BOL</th>
+                            <th scope="col" style="width: 100px;">Commercial Invoice</th>
+                            <th scope="col" style="width: 100px;">Pars / Paps</th>
+                            <th scope="col" style="width: 100px;">Customs Cleared</th>
+                            <th scope="col" style="width: 100px;">Shipper</th>
+                            <th scope="col" style="width: 100px;">Receiver</th>
+                            <th scope="col" style="width: 100px;">Carrier</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">From / To</th>
+                            <th scope="col">Carrier</th>
+                            <th scope="col" style="width: 75px;">Lead</th>
+                            <th></th>
+                            <th><button name="" value="" class="btn btn-success">Add</button>
+                        </tr>
+                    </thead>
+                    <tbody class="t-center">
+                        <tr class="">
+                            <td><input class="form-control" type="text" value="" name="number" id="number" required></td>
+                            <td>
+                                <select class='form-select form-select' name="picked" id="picked">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="signedBol" id="signedBol">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="commercialInvoice" id="commercialInvoice">
+                                    <option value="N/A">N/A</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="papsPars" id="papsPars">
+                                    <option value="N/A">N/A</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="customsCleared" id="customsCleared">
+                                    <option value="N/A">N/A</option>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="shipper" id="shipper">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="receiver" id="receiver">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class='form-select form-select' name="carrier" id="carrier">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </td>
+                            
+                            <td><input class="form-control" type="text" value="" name="client" id="client" list="customerName" required></td>
+                            <datalist id="customerName">
+                                <% customers.forEach(function(customer) { %>
+                                <option value="<%= customer.customer %>">
+                                <% }) %>
+                            </datalist>
+                            
+                            <td><input class="form-control" type="text" value="" name="fromTo" id="fromTo" required></td>
+                            <td><input class="form-control" type="text" value="" name="carrierUsed" id="carrierUsed" list="carrierName" required>
+                            <datalist id="carrierName">
+                                <% carriers.forEach(function(carrier) { %>
+                                <option value="<%= carrier.carrier %>">
+                                <% }) %>
+                            </datalist>
+                            
+                            </td>
+                            <td><input class="form-control" type="text" value="" name="lead" id="Lead" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+<%- include('partials/footer') %>

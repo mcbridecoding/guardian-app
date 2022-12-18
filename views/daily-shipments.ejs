@@ -1,0 +1,98 @@
+<%- include('partials/header') %>
+
+    <div class="container-fluid">
+
+    </div>
+
+    <div class="container-fluid report table-responsive">
+        <table class="table table-dark table-striped table-hover align-middle">
+            <thead class="">
+                <tr class="t-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Picked</th>
+                    <th scope="col">Signed BOL</th>
+                    <th scope="col">Commercial Invoice</th>
+                    <th scope="col">Pars / Paps</th>
+                    <th scope="col">Customs Cleared</th>
+                    <th scope="col">Shipper</th>
+                    <th scope="col">Receiver</th>
+                    <th scope="col">Carrier</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">From / To</th>
+                    <th scope="col">Carrier</th>
+                    <th scope="col">Lead</th>
+                    <th></th>
+                    <th><a href="/add-shipment" type="button" class="btn btn-success">Add </a></th>
+                </tr>
+            </thead>
+            <tbody class="t-center">
+                <% shipments.forEach(function(shipment) { %>
+                    <tr>
+                        <td><%= shipment.number %></td>
+                        <% if (shipment.picked) { %>
+                            <td>✅</td>
+                        <% } else {%> 
+                            <td></td>
+                        <%} %>
+                        <% if (shipment.signedBol) { %>
+                            <td>✅</td>
+                        <% } else {%> 
+                            <td></td>                       
+                        <%} %>
+                        <% if (shipment.commercialInvoice === 'true') { %>
+                            <td>✅</td>
+                        <% } else if (shipment.commercialInvoice === 'false'){%> 
+                            <td></td>
+                        <% } else {%> 
+                            <td>N/A</td>
+                        <%} %>                       
+                        <% if (shipment.papsPars === 'true') { %>
+                            <td>✅</td>
+                        <% } else if (shipment.papsPars === 'false'){%> 
+                            <td></td>
+                        <% } else {%> 
+                            <td>N/A</td>
+                        <%} %>                       
+                        <% if (shipment.customsCleared === 'true') { %>
+                            <td>✅</td>
+                        <% } else if (shipment.customsCleared === 'false'){%> 
+                            <td></td>
+                        <% } else {%> 
+                            <td>N/A</td>
+                        <%} %>                       
+                        <% if (shipment.shipper) { %>
+                            <td>✅</td>
+                        <% } else {%> 
+                            <td></td>
+                        <%} %>
+                        <% if (shipment.receiver) { %>
+                                <td>✅</td>
+                        <% } else {%> 
+                            <td></td> 
+                        <%} %>  
+                        <% if (shipment.carrier) { %>
+                            <td>✅</td>
+                        <% } else {%> 
+                            <td></td> 
+                        <%} %>
+                        <td><%= shipment.client %></td>
+                        <td><%= shipment.fromTo %></td>
+                        <td><%= shipment.carrierUsed %></td>
+                        <td><%= shipment.lead %></td>
+                        <td>
+                            <form action="/update-shipment" method="post">
+                                <button class="btn btn-success options" name="updateId" value="<%= shipment._id %>">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/delete-shipment" method="post">
+                                <button class="btn btn-danger options" name="deleteId" value="<%= shipment._id %>">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include('partials/footer') %>
