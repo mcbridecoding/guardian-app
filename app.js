@@ -502,14 +502,17 @@ app.route('/delete-vendor')
 
 app.route('/inbound')
     .get(function (req, res) {
-        Inbound.find({}, function (err, foundItems) {
+        
+        const query = Inbound.find({}).sort( { date: 1 } ); 
+            
+         query.exec(function (err, foundItems) {
             if (!err) {
                 res.render('inbound', {foundItems: foundItems});
             } else {    
                 console.log(err);
-            }
-        }); 
-    })
+            } 
+        });
+    })    
     .post(function (req, res) {
         Inbound.find({ _id:req.body.updateId }, function (err, foundItems) {
             if (!err) {
