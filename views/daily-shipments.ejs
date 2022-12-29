@@ -39,23 +39,23 @@
                         <% } else {%> 
                             <td></td>                       
                         <%} %>
-                        <% if (shipment.commercialInvoice === 'true') { %>
+                        <% if (shipment.commercialInvoice === 'Yes') { %>
                             <td>✅</td>
-                        <% } else if (shipment.commercialInvoice === 'false'){%> 
+                        <% } else if (shipment.commercialInvoice === 'No'){%> 
                             <td></td>
                         <% } else {%> 
                             <td>N/A</td>
                         <%} %>                       
-                        <% if (shipment.papsPars === 'true') { %>
+                        <% if (shipment.papsPars === 'Yes') { %>
                             <td>✅</td>
-                        <% } else if (shipment.papsPars === 'false'){%> 
+                        <% } else if (shipment.papsPars === 'No'){%> 
                             <td></td>
                         <% } else {%> 
                             <td>N/A</td>
                         <%} %>                       
-                        <% if (shipment.customsCleared === 'true') { %>
+                        <% if (shipment.customsCleared === 'Yes') { %>
                             <td>✅</td>
-                        <% } else if (shipment.customsCleared === 'false'){%> 
+                        <% } else if (shipment.customsCleared === 'No'){%> 
                             <td></td>
                         <% } else {%> 
                             <td>N/A</td>

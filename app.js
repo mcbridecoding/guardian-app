@@ -73,29 +73,26 @@ const vendorSchema = new mongoose.Schema({ vendor: String });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);
 
+function calculateDates(status) {
+    var date = new Date(status); // M-D-YYYY
 
-function calculateShipdate(status) {
-    if (status === '') {
-        return 'TBA';
-    } else {
-        return status
-    }
+    date.toString();
+    
+    var d = date.getUTCDate();
+    var m = date.getUTCMonth() + 1;
+    var y = date.getFullYear();
+
+    var dateString = (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d) + '-' + y;     
+    return dateString
 }
 
-function calculateReadydate(status) {
+function dateFormat(status) {
     if (status === '') {
         return 'TBA';
     } else {
         return status
-    }
-}
-
-function calculateAppointmentDate(status) {
-    if (status === '') {
-        return 'TBA';
-    } else {
-        return status
-    }
+        // calculateDates(status)
+    }      
 }
 
 function pickedStatus(status) {
@@ -238,15 +235,16 @@ app.route('/add')
             }
         });
 
-        const readyDate = calculateReadydate(req.body.readyDate);
-        const shipDate = calculateShipdate(req.body.shipDate);
-        const appointmentDate = calculateAppointmentDate(req.body.appointmentDate);
+        const readyDate = dateFormat(req.body.readyDate);
+        const shipDate = dateFormat(req.body.shipDate);
+        const appointmentDate = dateFormat(req.body.appointmentDate);
+        const inHouseDate = dateFormat(req.body.inHouseDate);
 
         const appointment = new Appointment({
             poNumber: req.body.poNumber,
             depot: req.body.depot,
             vendor: req.body.vendor,
-            inHouseDate: req.body.inHouseDate,
+            inHouseDate: inHouseDate,
             readyDate: readyDate,
             shipDate: shipDate,
             appointmentDate: appointmentDate,
@@ -500,6 +498,56 @@ app.route('/delete-vendor')
         });
     });
 
+app.route('/depot-one')
+    .get((req, res) => { 
+        const airdrie = []
+
+        const query = Appointment.find({depot: 'Airdrie'}).sort({ appointmentDate: 1, confirmationNumber: 1, inHouseDate: 1 });
+
+        query.exec(function (err, foundItems) {
+            if (!err) {
+                res.render('depot-one', {
+                    airdrie: foundItems,
+                });
+            } else {
+                console.log(err);
+            }
+        });        
+    });
+
+app.route('/depot-two')
+    .get((req, res) => { 
+        const langley = []
+        const vaughan = []
+        const varennes = []
+
+        const query = Appointment.find({}).sort({ appointmentDate: 1, confirmationNumber: 1, inHouseDate: 1 });
+
+        query.exec(function (err, foundItems) {
+            if (!err) {
+                foundItems.forEach(function (item) {
+                    if (item.depot === 'Langley') {
+                        langley.push(item)
+                    }
+                    if (item.depot === 'Vaughan') {
+                        vaughan.push(item)
+                    }
+                    if (item.depot === 'Varennes') {
+                        varennes.push(item)
+                    }
+                });
+                res.render('depot-two', {
+                    langley: langley,
+                    vaughan: vaughan,
+                    varennes: varennes,
+                });
+            } else {
+                console.log(err);
+            }
+        });      
+    });
+
+
 app.route('/inbound')
     .get(function (req, res) {
         
@@ -588,10 +636,10 @@ app.route('/update-inbound')
 
 app.route('/update-record')
     .post(function (req, res) {
-        const readyDate = calculateReadydate(req.body.readyDate);
-        const inHouseDate = req.body.inHouseDate;
-        const shipDate = calculateShipdate(req.body.shipDate);
-        const appointmentDate = calculateAppointmentDate(req.body.appointmentDate);
+        const readyDate = dateFormat(req.body.readyDate);
+        const inHouseDate = dateFormat(req.body.inHouseDate);
+        const shipDate = dateFormat(req.body.shipDate);
+        const appointmentDate = dateFormat(req.body.appointmentDate);
         const appointmentTime = req.body.appointmentTime;
         const picked = pickedStatus(req.body.picked)
         const acceptedQuotes = acceptedQuotesStatus(req.body.acceptedQuotes);
@@ -673,6 +721,24 @@ app.route('/update-shipment-record')
         });
         res.redirect('/daily-report');
     });
+
+app.route('/test')
+    .get(function (req, res) {
+        res.render('test', {});
+    })
+    .post(function (req, res) {
+        var date = new Date(req.body.test); // M-D-YYYY
+
+        date.toString();
+        
+        var d = date.getUTCDate();
+        var m = date.getUTCMonth() + 1;
+        var y = date.getFullYear();
+
+        var dateString = (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d) + '-' + y;     
+        return dateString
+    });
+
 
 let port = process.env.PORT;
 if (port == null || port == '') {
