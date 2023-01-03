@@ -397,7 +397,7 @@ app.route('/add-shipment')
             lead: req.body.lead,
         });
         newShipment.save();
-        res.redirect('/daily-report');
+        res.redirect('/daily-shipment');
     });
 
 app.route('/add-vendor')
@@ -407,7 +407,7 @@ app.route('/add-vendor')
         res.redirect('/saved-data');
     });
 
-app.route('/daily-report')
+app.route('/daily-shipment')
     .get(function (req, res) {
         const query = DailyShipment.find({}).sort({ number: 1 });
         query.exec(function (err, foundItems) {
@@ -419,6 +419,19 @@ app.route('/daily-report')
         });
 
     });
+
+app.route('/daily-report')
+    .get(function (req, res) {
+        const query = DailyShipment.find({}).sort({ number: 1 });
+        query.exec(function (err, foundItems) {
+            if (!err) {
+                res.render('daily-report', { shipments: foundItems });
+            } else {
+                console.log(err);
+            }
+        });
+
+    });    
 
 app.route('/delete-appointment')
     .post(function (req, res) {
@@ -478,7 +491,7 @@ app.route('/delete-shipment')
         DailyShipment.findByIdAndRemove(orderId, function (err) {
             if (!err) {
                 console.log('Successfully delete ' + orderId);
-                res.redirect('/daily-report');
+                res.redirect('/daily-shipment');
             } else {
                 console.log(err);
             }
@@ -498,7 +511,31 @@ app.route('/delete-vendor')
         });
     });
 
-app.route('/depot-one')
+
+app.route('/inbound')
+    .get(function (req, res) {
+        
+        const query = Inbound.find({}).sort( { date: 1 } ); 
+            
+         query.exec(function (err, foundItems) {
+            if (!err) {
+                res.render('inbound', {foundItems: foundItems});
+            } else {    
+                console.log(err);
+            } 
+        });
+    })    
+    .post(function (req, res) {
+        Inbound.find({ _id:req.body.updateId }, function (err, foundItems) {
+            if (!err) {
+                res.render('update-inbound', { foundItems: foundItems });
+            } else {
+                console.log(err);
+            }
+        });      
+    });
+
+    app.route('/depot-one')
     .get((req, res) => { 
         const airdrie = []
 
@@ -541,30 +578,6 @@ app.route('/depot-two')
                     vaughan: vaughan,
                     varennes: varennes,
                 });
-            } else {
-                console.log(err);
-            }
-        });      
-    });
-
-
-app.route('/inbound')
-    .get(function (req, res) {
-        
-        const query = Inbound.find({}).sort( { date: 1 } ); 
-            
-         query.exec(function (err, foundItems) {
-            if (!err) {
-                res.render('inbound', {foundItems: foundItems});
-            } else {    
-                console.log(err);
-            } 
-        });
-    })    
-    .post(function (req, res) {
-        Inbound.find({ _id:req.body.updateId }, function (err, foundItems) {
-            if (!err) {
-                res.render('update-inbound', { foundItems: foundItems });
             } else {
                 console.log(err);
             }
@@ -696,8 +709,6 @@ app.route('/update-shipment-record')
         const receiver = calculateStatus(req.body.receiver);
         const carrier = calculateStatus(req.body.carrier);
 
-        console.log(picked, signed, shipper, receiver, carrier);
-
         DailyShipment.findByIdAndUpdate(orderId, {
             number: req.body.number,
             picked: picked,
@@ -719,7 +730,7 @@ app.route('/update-shipment-record')
                 console.log(docs);
             }
         });
-        res.redirect('/daily-report');
+        res.redirect('/daily-shipment');
     });
 
 app.route('/test')

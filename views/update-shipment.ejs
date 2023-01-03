@@ -1,121 +1,131 @@
 <%- include('partials/header') %>
 <% shipments.forEach(function(shipment) { %>    
-    <div class="body">
-        <div class="container-fluid report table-responsive">
-                <table class="table align-middle table-dark table-striped table-hover">
-                    <thead class="t-center">
-                        <tr>
-                            <th scope="col" style="width: 75px;">#</th>
-                            <th scope="col" style="width: 100px;">Picked</th>
-                            <th scope="col" style="width: 100px;">Signed BOL</th>
-                            <th scope="col" style="width: 100px;">Commercial Invoice</th>
-                            <th scope="col" style="width: 100px;">Pars / Paps</th>
-                            <th scope="col" style="width: 100px;">Customs Cleared</th>
-                            <th scope="col" style="width: 100px;">Shipper</th>
-                            <th scope="col" style="width: 100px;">Receiver</th>
-                            <th scope="col" style="width: 100px;">Carrier</th>
-                            <th scope="col">Client</th>
-                            <th scope="col">From / To</th>
-                            <th scope="col">Carrier</th>
-                            <th scope="col" style="width: 75px;">Lead</th>
-                            <th></th>
-                            <form action="/update-shipment-record" method="post" autocomplete="off">
-                                <th><button name="updateId" value="<%= shipment._id %>" class="btn btn-success">Submit</button>
-                        </tr>
-                    </thead>
-                    <tbody class="t-center">
-                        <tr class="">
-                            <td><input class="form-control" type="text" value="<%= shipment.number %>" name="number" id="number" required></td>
-                            <td>
-                                <select class='form-select form-select' name="picked" id="picked">
-                                    <% if (shipment.picked) { %>
-                                        <option value='true' selected>Yes</option>
-                                    <% } else {%> 
-                                        <option value="false" selected>No</option>
-                                    <% } %>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="signedBol" id="signedBol">
-                                    <% if (shipment.signedBol) { %>
-                                        <option value='true' selected>Yes</option>
-                                    <% } else {%> 
-                                        <option value="false" selected>No</option>
-                                    <% } %>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="commercialInvoice" id="commercialInvoice">
-                                    <option selected><%= shipment.commercialInvoice %></option>
-                                    <option value="N/A">N/A</option>
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="papsPars" id="papsPars">
-                                    <option selected><%= shipment.papsPars %></option>
-                                    <option value="N/A">N/A</option>
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="customsCleared" id="customsCleared">
-                                    <option selected><%= shipment.customsCleared %></option>
-                                    <option value="N/A">N/A</option>
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="shipper" id="shipper">
-                                    <% if (shipment.shipper) { %>
-                                        <option value='true' selected>Yes</option>
-                                    <% } else {%> 
-                                        <option value="false" selected>No</option>
-                                    <% } %>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="receiver" id="receiver">
-                                    <% if (shipment.receiver) { %>
-                                        <option value='true' selected>Yes</option>
-                                    <% } else {%> 
-                                        <option value="false" selected>No</option>
-                                    <% } %>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class='form-select form-select' name="carrier" id="carrier">
-                                    <% if (shipment.carrier) { %>
-                                        <option value="true" selected>Yes</option>
-                                    <% } else {%> 
-                                        <option value="false" selected>No</option>
-                                    <% } %>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
-
-                                </select>
-                            </td>
-                            <td><input class="form-control" type="text" value="<%= shipment.client %>" name="client" id="client" required></td>
-                            <td><input class="form-control" type="text" value="<%= shipment.fromTo %>" name="fromTo" id="fromTo" required></td>
-                            <td><input class="form-control" type="text" value="<%= shipment.carrierUsed %>" name="carrierUsed" id="carrierUsed" required>
-                            </td>
-                            <td><input class="form-control" type="text" value="<%= shipment.lead %>" name="lead" id="Lead" required></td>
-                        </tr>
-                    </tbody>
-                </table>
-        </div>
+    <div class="label-header">
+        <h1>UPDATE SHIPMENT</h1>
     </div>
-</form>
+    <div class="body">
+        <form action="/update-shipment-record" method="post" autocomplete="off">
+            <div class="container-fluid add-form">
+                <div class="row">
+                    <div class="col">
+                        <label for="number">Order Number:</label>
+                        <input class="form-control" type="text" value="<%= shipment.number %>" name="number" id="number" required>
+                    </div>
+                    <div class="col">
+                        <label for="lead">Lead:</label>
+                        <input class="form-control" type="text" value="<%= shipment.lead %>" name="lead" id="Lead" required>
+                    </div>
+                    <div class="col">
+                        <label for="picked">Picked:</label>
+                        <select class='form-select form-select' name="picked" id="picked">
+                            <% if (shipment.picked) { %>
+                                <option value='true' selected>Yes</option>
+                            <% } else {%> 
+                                <option value="false" selected>No</option>
+                            <% } %>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="signedBol">Signed BOL:</label>
+                        <select class='form-select form-select' name="signedBol" id="signedBol">
+                            <% if (shipment.signedBol) { %>
+                                <option value='true' selected>Yes</option>
+                            <% } else {%> 
+                                <option value="false" selected>No</option>
+                            <% } %>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="commercialInvoice">Commercial Invoice:</label>
+                        <select class='form-select form-select' name="commercialInvoice" id="commercialInvoice">
+                            <option selected><%= shipment.commercialInvoice %></option>
+                            <option value="N/A">N/A</option>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="papsPars">Pars / PAPS:</label>
+                        <select class='form-select form-select' name="papsPars" id="papsPars">
+                            <option selected><%= shipment.papsPars %></option>
+                            <option value="N/A">N/A</option>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="customsCleared">Customs Cleared:</label>
+                        <select class='form-select form-select' name="customsCleared" id="customsCleared">
+                            <option selected><%= shipment.customsCleared %></option>
+                            <option value="N/A">N/A</option>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="shipper">Shipper:</label>
+                        <select class='form-select form-select' name="shipper" id="shipper">
+                            <% if (shipment.shipper) { %>
+                                <option value='true' selected>Yes</option>
+                            <% } else {%> 
+                                <option value="false" selected>No</option>
+                            <% } %>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="receiver">Receiver:</label>
+                        <select class='form-select form-select' name="receiver" id="receiver">
+                            <% if (shipment.receiver) { %>
+                                <option value='true' selected>Yes</option>
+                            <% } else {%> 
+                                <option value="false" selected>No</option>
+                            <% } %>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="carrier">Carrier:</label>
+                        <select class='form-select form-select' name="carrier" id="carrier">
+                            <% if (shipment.carrier) { %>
+                                <option value="true" selected>Yes</option>
+                            <% } else {%> 
+                                <option value="false" selected>No</option>
+                            <% } %>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customerName">Customer:</label>
+                        <input class="form-control" type="text" value="<%= shipment.client %>" name="client" id="client" list="customerName" required></td>
+                    </div>
+                    <div class="col">
+                        <label for="fromTo">From / To:</label>
+                        <input class="form-control" type="text" value="<%= shipment.fromTo %>" name="fromTo" id="fromTo" required>
+                    </div>
+                    <div class="col">
+                        <label for="carrierUsed">Carrier:</label>
+                        <input class="form-control" type="text" value="<%= shipment.carrierUsed %>" name="carrierUsed" id="carrierUsed" list="carrierName" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <button name="updateId" value="<%= shipment._id %>" class="btn btn-success add-shipment-button">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>   
 <% }) %>
 <%- include('partials/footer') %>
