@@ -1,98 +1,101 @@
 <%- include('partials/header') %>
 
-    <div class="container-fluid">
-
-    </div>
-
-    <div class="container-fluid report table-responsive">
-        <table class="table table-dark table-striped table-hover align-middle">
-            <thead class="">
-                <tr class="t-center">
-                    <th scope="col">#</th>
-                    <th scope="col">Picked</th>
-                    <th scope="col">Signed BOL</th>
-                    <th scope="col">Commercial Invoice</th>
-                    <th scope="col">Pars / Paps</th>
-                    <th scope="col">Customs Cleared</th>
-                    <th scope="col">Shipper</th>
-                    <th scope="col">Receiver</th>
-                    <th scope="col">Carrier</th>
-                    <th scope="col">Client</th>
-                    <th scope="col">From / To</th>
-                    <th scope="col">Carrier</th>
-                    <th scope="col">Lead</th>
-                    <th></th>
-                    <th><a href="/add-shipment" type="button" class="btn btn-success">Add </a></th>
+<div class="button-panel d-flex justify-content-between">
+    <a href="/add-shipment" class="button-add"><svg class="button-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg> 
+        ADD
+    </a> 
+    <a href="/delete-all-shipments" class="button-reset"><svg class="button-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-diamond" viewBox="0 0 16 16">
+        <path d="M7.987 16a1.526 1.526 0 0 1-1.07-.448L.45 9.082a1.531 1.531 0 0 1 0-2.165L6.917.45a1.531 1.531 0 0 1 2.166 0l6.469 6.468A1.526 1.526 0 0 1 16 8.013a1.526 1.526 0 0 1-.448 1.07l-6.47 6.469A1.526 1.526 0 0 1 7.988 16zM7.639 1.17 4.766 4.044 8 7.278l3.234-3.234L8.361 1.17a.51.51 0 0 0-.722 0zM8.722 8l3.234 3.234 2.873-2.873c.2-.2.2-.523 0-.722l-2.873-2.873L8.722 8zM8 8.722l-3.234 3.234 2.873 2.873c.2.2.523.2.722 0l2.873-2.873L8 8.722zM7.278 8 4.044 4.766 1.17 7.639a.511.511 0 0 0 0 .722l2.874 2.873L7.278 8z"/>
+        </svg> 
+        RESET
+    </a>   
+</div>
+<div class="container-fluid report table-responsive">
+    <table class="table table-light table-striped table-hover align-middle">
+        <thead class="">
+            <tr class="t-center">
+                <th scope="col">Order #</th>
+                <th scope="col">Picked</th>
+                <th scope="col">Signed BOL</th>
+                <th scope="col">Commercial Invoice</th>
+                <th scope="col">Pars / Paps</th>
+                <th scope="col">Customs Cleared</th>
+                <th scope="col">Shipper</th>
+                <th scope="col">Receiver</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Client</th>
+                <th scope="col">From / To</th>
+                <th scope="col">Carrier</th>
+                <th scope="col">Lead</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="t-center">
+            <% shipments.forEach(function(shipment) { %>
+                <tr>
+                    <td><a href="/updateShipment-<%= shipment._id %>"><%= shipment.number %></a></td>
+                    <% if (shipment.picked) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <% if (shipment.signedBol) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>                       
+                    <%} %>
+                    <% if (shipment.commercialInvoice === 'Yes') { %>
+                        <td>✅</td>
+                    <% } else if (shipment.commercialInvoice === 'No'){%> 
+                        <td></td>
+                    <% } else {%> 
+                        <td>N/A</td>
+                    <%} %>                       
+                    <% if (shipment.papsPars === 'Yes') { %>
+                        <td>✅</td>
+                    <% } else if (shipment.papsPars === 'No'){%> 
+                        <td></td>
+                    <% } else {%> 
+                        <td>N/A</td>
+                    <%} %>                       
+                    <% if (shipment.customsCleared === 'Yes') { %>
+                        <td>✅</td>
+                    <% } else if (shipment.customsCleared === 'No'){%> 
+                        <td></td>
+                    <% } else {%> 
+                        <td>N/A</td>
+                    <%} %>                       
+                    <% if (shipment.shipper) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td>
+                    <%} %>
+                    <% if (shipment.receiver) { %>
+                            <td>✅</td>
+                    <% } else {%> 
+                        <td></td> 
+                    <%} %>  
+                    <% if (shipment.carrier) { %>
+                        <td>✅</td>
+                    <% } else {%> 
+                        <td></td> 
+                    <%} %>
+                    <td><%= shipment.client %></td>
+                    <td><%= shipment.fromTo %></td>
+                    <td><%= shipment.carrierUsed %></td>
+                    <td><%= shipment.lead %></td>
+                    <td class="table-delete">
+                        <form action="/delete-shipment" method="post">
+                            <button name="deleteId" value="<%= shipment._id %>" type="submit" class="btn-close" aria-label="Close"></button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody class="t-center">
-                <% shipments.forEach(function(shipment) { %>
-                    <tr>
-                        <td><%= shipment.number %></td>
-                        <% if (shipment.picked) { %>
-                            <td>✅</td>
-                        <% } else {%> 
-                            <td></td>
-                        <%} %>
-                        <% if (shipment.signedBol) { %>
-                            <td>✅</td>
-                        <% } else {%> 
-                            <td></td>                       
-                        <%} %>
-                        <% if (shipment.commercialInvoice === 'Yes') { %>
-                            <td>✅</td>
-                        <% } else if (shipment.commercialInvoice === 'No'){%> 
-                            <td></td>
-                        <% } else {%> 
-                            <td>N/A</td>
-                        <%} %>                       
-                        <% if (shipment.papsPars === 'Yes') { %>
-                            <td>✅</td>
-                        <% } else if (shipment.papsPars === 'No'){%> 
-                            <td></td>
-                        <% } else {%> 
-                            <td>N/A</td>
-                        <%} %>                       
-                        <% if (shipment.customsCleared === 'Yes') { %>
-                            <td>✅</td>
-                        <% } else if (shipment.customsCleared === 'No'){%> 
-                            <td></td>
-                        <% } else {%> 
-                            <td>N/A</td>
-                        <%} %>                       
-                        <% if (shipment.shipper) { %>
-                            <td>✅</td>
-                        <% } else {%> 
-                            <td></td>
-                        <%} %>
-                        <% if (shipment.receiver) { %>
-                                <td>✅</td>
-                        <% } else {%> 
-                            <td></td> 
-                        <%} %>  
-                        <% if (shipment.carrier) { %>
-                            <td>✅</td>
-                        <% } else {%> 
-                            <td></td> 
-                        <%} %>
-                        <td><%= shipment.client %></td>
-                        <td><%= shipment.fromTo %></td>
-                        <td><%= shipment.carrierUsed %></td>
-                        <td><%= shipment.lead %></td>
-                        <td>
-                            <form action="/update-shipment" method="post">
-                                <button class="btn btn-success options" name="updateId" value="<%= shipment._id %>">Update</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="/delete-shipment" method="post">
-                                <button class="btn btn-danger options" name="deleteId" value="<%= shipment._id %>">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
 
-    <%- include('partials/footer') %>
+<%- include('partials/footer') %>

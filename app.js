@@ -9,8 +9,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-//Todo 1: Create Mongo DB
-
 mongoose.connect('mongodb://127.0.0.1:27017/appointments');
 
 const appointmentSchema = new mongoose.Schema({
@@ -72,19 +70,6 @@ const Inbound = new mongoose.model('Inbound', inboundSchema);
 const vendorSchema = new mongoose.Schema({ vendor: String });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);
-
-function calculateDates(status) {
-    var date = new Date(status); // M-D-YYYY
-
-    date.toString();
-    
-    var d = date.getUTCDate();
-    var m = date.getUTCMonth() + 1;
-    var y = date.getFullYear();
-
-    var dateString = (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d) + '-' + y;     
-    return dateString
-}
 
 function dateFormat(status) {
     if (status === '') {
@@ -407,6 +392,83 @@ app.route('/add-vendor')
         res.redirect('/saved-data');
     });
 
+app.route('/costco-appointments')
+.get(function (req, res) {
+    const langley = []
+    const airdrie = []
+    const vaughan = []
+    const varennes = []
+
+    const query = Appointment.find({}).sort({ appointmentDate: 1, confirmationNumber: 1, inHouseDate: 1 });
+
+    query.exec(function (err, foundItems) {
+        if (!err) {
+            foundItems.forEach(function (item) {
+                if (item.depot === 'Langley') {
+                    langley.push(item)
+                }
+                if (item.depot === 'Airdrie') {
+                    airdrie.push(item)
+                }
+                if (item.depot === 'Vaughan') {
+                    vaughan.push(item)
+                }
+                if (item.depot === 'Varennes') {
+                    varennes.push(item)
+                }
+            });
+            res.render('costco-appointments', {
+                langley: langley,
+                airdrie: airdrie,
+                vaughan: vaughan,
+                varennes: varennes,
+            });
+        } else {
+            console.log(err);
+        }
+    });
+})
+.post(function (req, res) {
+    Carrier.find({}, function (err1, carriers) {
+        if (!err1) {
+            Vendor.find({}, function (err2, vendors) {
+                if (!err2) {
+                    const depot1 = req.body.depot;
+                    const langley = [{
+                        poNumber: '0007',
+                        depot: 'Langley'
+                    }]
+                    const airdrie = [{
+                        poNumber: '0103',
+                        depot: 'Airdrie'
+                    }]
+                    const vaughan = [{
+                        poNumber: '0057 1',
+                        depot: 'Vaughan'
+                    }]
+                    const varennes = [{
+                        poNumber: '0057 2',
+                        depot: 'Varennes'
+                    }]
+                    if (depot1 === 'langley') {
+                        res.render('add-appointment', { items: langley, carriers: carriers, vendors: vendors });
+                    } else if (depot1 === 'airdrie') {
+                        res.render('add-appointment', { items: airdrie, carriers: carriers, vendors: vendors });
+                    } else if (depot1 === 'vaughan') {
+                        res.render('add-appointment', { items: vaughan, carriers: carriers, vendors: vendors });
+                    } else if (depot1 === 'varennes') {
+                        res.render('add-appointment', { items: varennes, carriers: carriers, vendors: vendors });
+                    }
+                } else {
+                    console.log('Error 2: ' + err2);
+                }
+            });
+        } else {
+            console.log('Error 1: ' + err1);
+        }
+    });
+});
+
 app.route('/daily-shipment')
     .get(function (req, res) {
         const query = DailyShipment.find({}).sort({ number: 1 });
@@ -431,7 +493,19 @@ app.route('/daily-report')
             }
         });
 
-    });    
+    });   
+    
+app.route('/delete-all-shipments')
+    .get((req, res) => {
+        DailyShipment.deleteMany({}, (err) => {
+            if (!err) {
+                console.log('Sucessfully Reset Daily Shipments');
+                res.redirect('/daily-shipment')
+            } else {
+                console.log(err);
+            }
+        });      
+    });
 
 app.route('/delete-appointment')
     .post(function (req, res) {
@@ -511,31 +585,7 @@ app.route('/delete-vendor')
         });
     });
 
-
-app.route('/inbound')
-    .get(function (req, res) {
-        
-        const query = Inbound.find({}).sort( { date: 1 } ); 
-            
-         query.exec(function (err, foundItems) {
-            if (!err) {
-                res.render('inbound', {foundItems: foundItems});
-            } else {    
-                console.log(err);
-            } 
-        });
-    })    
-    .post(function (req, res) {
-        Inbound.find({ _id:req.body.updateId }, function (err, foundItems) {
-            if (!err) {
-                res.render('update-inbound', { foundItems: foundItems });
-            } else {
-                console.log(err);
-            }
-        });      
-    });
-
-    app.route('/depot-one')
+app.route('/depot-one')
     .get((req, res) => { 
         const airdrie = []
 
@@ -584,6 +634,32 @@ app.route('/depot-two')
         });      
     });
 
+app.route('/inbound')
+    .get(function (req, res) {
+        const query = Inbound.find({}).sort( { date: 1 } ); 
+            
+         query.exec(function (err, foundItems) {
+            if (!err) {
+                res.render('inbound', {foundItems: foundItems});
+            } else {    
+                console.log(err);
+            } 
+        });
+    });
+
+app.route('/inbound-report')
+    .get((req, res) => {
+        const query = Inbound.find({}).sort( { date: 1 } ); 
+            
+        query.exec(function (err, foundItems) {
+           if (!err) {
+               res.render('inbound-report', {foundItems: foundItems});
+           } else {    
+               console.log(err);
+           } 
+       });
+    });
+
 app.route('/saved-data')
     .get(function (req, res) {
         const carrierQuery = Carrier.find({}).sort({ carrier: 1 });
@@ -615,39 +691,17 @@ app.route('/saved-data')
         });
     });
 
-app.route('/update')
-    .post(function (req, res) {
-        const orderId = req.body.updateId;
-        Appointment.find({ _id: orderId }, function (err, foundItems) {
+app.route('/update-:id')
+    .get((req, res) => {
+        const orderId = req.params.id;
+        Appointment.find({ _id: orderId }, (err, foundItems) => {
             if (!err) {
                 res.render('update', { items: foundItems });
             } else {
                 console.log(err)
             }
         });
-    });
-
-app.route('/update-inbound')
-    .post(function (req, res) {
-        const inboundId = req.body.updateId;
-        Inbound.findByIdAndUpdate(inboundId, {
-            date: req.body.etaDate,
-            time: req.body.etaTime,
-            client: req.body.client,
-            container: req.body.container,
-            reference: req.body.reference,
-            carrier: req.body.carrier
-        }, function (err, docs) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(docs);
-            }
-        });
-        res.redirect('/inbound');
-    });
-
-app.route('/update-record')
+    })
     .post(function (req, res) {
         const readyDate = dateFormat(req.body.readyDate);
         const inHouseDate = dateFormat(req.body.inHouseDate);
@@ -685,6 +739,37 @@ app.route('/update-record')
         res.redirect('/');
     });
 
+
+app.route('/updateInbound-:id')
+    .get((req, res) => {
+        const inboundId = req.params.id;
+        Inbound.find({ _id: inboundId }, function (err, foundItems) {
+            if (!err) {
+                res.render('update-inbound', { foundItems: foundItems });
+            } else {
+                console.log(err);
+            }
+        });  
+    })
+    .post(function (req, res) {
+        const inboundId = req.body.updateId;
+        Inbound.findByIdAndUpdate(inboundId, {
+            date: req.body.etaDate,
+            time: req.body.etaTime,
+            client: req.body.client,
+            container: req.body.container,
+            reference: req.body.reference,
+            carrier: req.body.carrier
+        }, function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+            }
+        });
+        res.redirect('/inbound');    
+    });
+
 app.route('/update-shipment')
     .post(function (req, res) {
         const orderId = req.body.updateId;
@@ -699,7 +784,19 @@ app.route('/update-shipment')
         });
     });
 
-app.route('/update-shipment-record')
+app.route('/updateShipment-:id')
+    .get((req, res) => {
+        const orderId = req.params.id;
+
+        DailyShipment.find({ _id: orderId }, function (err, foundItems) {
+            if (!err) {
+                console.log(orderId);
+                res.render('update-shipment', { shipments: foundItems })
+            } else {
+                console.log(err);
+            }
+        });
+    })
     .post(function (req, res) {
         const orderId = req.body.updateId;
 
@@ -735,19 +832,22 @@ app.route('/update-shipment-record')
 
 app.route('/test')
     .get(function (req, res) {
-        res.render('test', {});
+        Appointment.find({}, (err, foundItems) => {
+            if (!err) {
+                res.render('test', { foundItems: foundItems });
+            } else {
+                console.log(err);
+            }
+        });
     })
     .post(function (req, res) {
-        var date = new Date(req.body.test); // M-D-YYYY
-
-        date.toString();
-        
-        var d = date.getUTCDate();
-        var m = date.getUTCMonth() + 1;
-        var y = date.getFullYear();
-
-        var dateString = (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d) + '-' + y;     
-        return dateString
+        Appointment.find({}, (err, foundItems) => {
+            if (!err) {
+                res.render('test', { foundItems: foundItems });
+            } else {
+                console.log(err);
+            }
+        });
     });
 
 

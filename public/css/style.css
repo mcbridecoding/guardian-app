@@ -1,3 +1,17 @@
+td a:link {
+    color: #242424;
+    text-decoration: none;
+    width: 100%;
+}
+
+td a:visited {
+    color: #242424;
+    text-decoration: none;
+    width: 100%;    
+}
+
+
+
 .add-form {
     background-color: #ffff;
     color: #242424;
@@ -34,9 +48,59 @@ body {
     margin: 50px 100px 100px 100px;
 }
 
+.button-add {
+    background-color: #2e5c3f;
+    border: 1px solid #242424;
+    border-radius: 5px;
+    color: #ffff;
+    letter-spacing: 2px;
+    margin-left: 50px;
+    padding: 10px 75px;
+    text-decoration: none;
+}
+
+.button-add:hover {
+    background-color: #244630;
+    color: #ffff;
+    text-decoration: none;
+}
+
+.button-icon {
+    margin-bottom: 2px;
+    margin-right: 10px;
+}
+
+.button-reset {
+    background-color: #FF0032;
+    border: 1px solid #242424;
+    border-radius: 5px;
+    color: #ffff;
+    margin-right: 50px;
+    padding: 10px 75px;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.button-reset:hover {
+    background-color: #CD0404;
+    color: #ffff;
+    text-decoration: none;
+}
+
+.button-panel {
+    margin: 25px;
+}
+
 .db-headers {
     color: #ffff;
     text-align: center;
+}
+
+.costco-logo {
+    background: transparent;
+    height: 225px;
+    width: 100%;
+    
 }
 
 .depot-buttons {
@@ -63,6 +127,38 @@ body {
     text-align: center;
 }
 
+.menu-button-icon {
+    margin-bottom: 8px;
+    margin-right: 20px;   
+}
+
+.main-menu-button {
+    border: 1px solid #ffff;
+    background-color: #242424;
+    border-radius: 10px;
+    box-shadow: 5px 2px #ffff;
+    color: #ffff;
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    height: 225px;
+    margin: 25px;
+    width: 50%;
+}
+
+.main-menu-button a:link {
+    color: #ffff;
+    text-decoration: none;
+}
+
+.main-menu-button a:visited {
+    color: #ffff;
+    text-decoration: none;   
+}
+
+.nav-item {
+    margin: 0 20px;
+}
+
 .options {
     width: 75px;
 }
@@ -80,6 +176,10 @@ body {
     margin: auto;
 }
 
+.table-delete {
+    width: 15px;
+}
+
 .table thead th {
     border-bottom: 2px solid #dee2e6;
     vertical-align: middle;
@@ -90,7 +190,3 @@ body {
     vertical-align: middle;
     width: 125px;
 }
-
-
-
-

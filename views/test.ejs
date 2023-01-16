@@ -3,3 +3,19 @@
     <input type="date" class='form-control' name="test" id="">
     <button class="btn btn-success">Submit</button>
 </form>
+<ul>
+    <% foundItems.forEach((item) => { %>
+        <li><%= item.readyDate %></li>
+    <% }) %>
+</ul>
+<ul>
+    <% foundItems.forEach((item) => { %>
+        <% if (item.readyDate[0] === 'T')  { %>
+            <li>TBA</li>
+        <% } else { %>
+            <li><%= item.readyDate[5] %><%= item.readyDate[6] %>-<%= item.readyDate[8] %><%= item.readyDate[9] %></li>
+        <% } %>
+    <% }) %>
+</ul>
+
+

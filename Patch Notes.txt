@@ -1,0 +1,40 @@
+Patch Notes - V1.1 - 01/15/2023
+
+Costco Report ('home' & 'depot-one' / 'depot-two')
+
+    Centered Table Headers.
+    Changed Refresh Rate on 'depot-one' & 'depot-two' to 60 seconds as requested by MH.
+    Changed the Update Record format to href. This will add additional space on the main reports.
+    Converted Delete Buttons to small 'X' for visual appearance and add space to main reports.
+    Converted 'In House Date / MABD' to 'I.H.D / M.A.B.D' to allow additional Space on the main report. 
+    Removed Depot Column from Costco Reports Pages, to allow additional Space on the main report.
+    Updated Date formats on 'home', 'depot-one' / 'depot-two', to reflect the date format of GTS Inc.
+
+Daily Report ('daily-shipments')
+    Added Button Panel to include 'Add Shipment' & 'Reset Shipments'.
+    Added functionality to Reset button to Clear Daily Shipments.
+    Changed the Update Record format to href. This will add additional space on the main reports.
+    Converted Delete Buttons to small 'X' for visual appearance and add space to main reports.
+    Update Add Button to be more visually appealing.
+
+Inbound ('inbound')
+    Changed the Update Record format to href. This will add additional space on the main reports.
+    Converted Delete Buttons to small 'X' for visual appearance and add space to main reports.
+    Update Add Button to be more visually appealing.
+    Updated Date formats on 'home', 'depot-one' / 'depot-two', to reflect the date format of GTS Inc.
+
+Inbound Report ('inbound-report')
+    Added Inbound report for display on Monitors
+    Changed Refresh Rate on 'depot-one' & 'depot-two' to 60 seconds as requested by MH.
+
+Costco Appointments ('costco-appointments')
+    Moved 'home' to a new window to re-utilize the home page in future.
+
+Header ('header')
+    Added Costco Appointments to options
+    Moved all hfrefs to right
+    Removed Saved Data to be used in future Main Menu options
+    Spread out hfref's to make more visually appealling
+
+Main Menu 
+    Added Main Menu to Project

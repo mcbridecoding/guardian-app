@@ -1,7 +1,14 @@
 <%- include('partials/header') %>
-
+<div class="button-panel d-flex justify-content-between">
+    <a href="/add-inbound" class="button-add"><svg class="button-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg> 
+        ADD
+    </a> 
+</div>
 <div class="container-fluid report">
-    <table class="table table-striped table-dark table-hover">
+    <table class="table table-striped table-light table-hover">
         <thead class="t-center">
             <tr>
                 <th scope="col">Estimated Date:</th>
@@ -10,30 +17,33 @@
                 <th scope="col">Container</th>
                 <th scope="col">PO / Reference</th>
                 <th scope="col">Carrier</th>
-                <th scope="col" colspan="2"><a href="/add-inbound" class="btn btn-primary add-button">Add</a></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-<% foundItems.forEach(function(item) { %>
+        <% foundItems.forEach(function(item) { %>
             <tr class="t-center">
-                <td><%= item.date %></td>
+                <% if (item.date[0] === 'T') { %>
+                    <td><a href="/updateInbound-<%= item._id %>">TBA</a></td>
+                <% } else { %>
+                    <td>
+                        <a href="/updateInbound-<%= item._id %>">
+                            <%= item.date[5] %><%= item.date[6] %>-<%= item.date[8] %><%= item.date[9] %>
+                        </a>
+                    </td>
+                <% } %>
                 <td><%= item.time %></td>
                 <td><%= item.client %></td>
                 <td><%= item.container %></td>
                 <td><%= item.reference %></td>
                 <td><%= item.carrier %></td>
-                <td class="table-options">
-                    <form action="/inbound" method="post">
-                        <button class="btn btn-success options" name="updateId" value="<%= item._id %>">Update</button>
-                    </form>
-                </td>
-                <td class="table-options">
+                <td class="delete-table">
                     <form action="/delete-inbound" method="post">
-                        <button class="btn btn-danger options" name="deleteId" value="<%= item._id %>">Delete</button>
+                        <button name="deleteId" value="<%= item._id %>" type="submit" class="btn-close" aria-label="Close"></button>
                     </form>
                 </td>
             </tr>
-<% }) %>        
+        <% }) %>        
         </tbody>
     </table>   
 </div>
